@@ -1,0 +1,41 @@
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: var(--space-4);
+}
+
+.amenity-card {
+  background: #fff;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.amenity-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.amenity-card__icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  background: var(--clr-primary-soft);
+  color: var(--clr-primary);
+  margin-bottom: var(--space-3);
+}
+
+.amenity-card h3 {
+  font-size: 1.02rem;
+  color: var(--clr-ink);
+  margin-bottom: 0.25rem;
+}
+
+.amenity-card p {
+  font-size: 0.88rem;
+  color: var(--clr-muted);
+  line-height: 1.55;
+}

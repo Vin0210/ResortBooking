@@ -1,0 +1,112 @@
+.room-card {
+  background: #fff;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.room-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.room-card__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 2.6;
+  overflow: hidden;
+  background: var(--clr-primary-soft);
+}
+
+.room-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.room-card:hover .room-card__media img {
+  transform: scale(1.04);
+}
+
+.room-card__placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--clr-primary), var(--clr-primary-dark));
+}
+
+.room-card__price {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  background: rgba(11, 30, 40, 0.82);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+
+.room-card__price small {
+  font-weight: 500;
+  opacity: 0.8;
+  font-size: 0.75rem;
+}
+
+.room-card__body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.room-card__name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.room-card__name a {
+  color: var(--clr-ink);
+  text-decoration: none;
+}
+
+.room-card__name a:hover {
+  color: var(--clr-primary);
+}
+
+.room-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--clr-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.room-card__desc {
+  color: var(--clr-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.room-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--clr-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  margin-top: var(--space-2);
+}
+
+.room-card__link:hover {
+  color: var(--clr-accent);
+}

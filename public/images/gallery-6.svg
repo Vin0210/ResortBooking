@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600" role="img" aria-label="GALLERY 06 · Grounds placeholder image">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#84cc16"/>
+      <stop offset="1" stop-color="#3f6212"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#g)"/>
+  <circle cx="738" cy="132" r="96" fill="#ffffff" opacity="0.25"/>
+  <path d="M0 432 Q 225 372 450 432 T 900 432 V 600 H 0 Z" fill="#ffffff" opacity="0.18"/>
+  <path d="M0 491.99999999999994 Q 225 444 450 491.99999999999994 T 900 491.99999999999994 V 600 H 0 Z" fill="#ffffff" opacity="0.22"/>
+  <text x="50%" y="52%" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#ffffff" opacity="0.9" letter-spacing="2">GALLERY 06 · Grounds</text>
+  <text x="50%" y="94%" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" fill="#ffffff" opacity="0.65">Azure Cove Beach Resort — demo photo</text>
+</svg>

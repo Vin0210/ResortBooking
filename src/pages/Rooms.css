@@ -1,0 +1,11 @@
+.rooms__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-5);
+}
+
+.rooms__loading {
+  text-align: center;
+  color: var(--clr-muted);
+  padding: var(--space-7) 0;
+}
