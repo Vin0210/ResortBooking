@@ -19,6 +19,7 @@ export const demoRooms = [
     created_at: '2026-01-10T08:00:00Z',
     room_images: [
       { id: 11, room_id: 1, image_url: img('dlux.jpg'), sort_order: 0 },
+      { id: 12, room_id: 1, image_url: img('room-1.jpg'), sort_order: 1 },
     ],
   },
   {
@@ -32,7 +33,7 @@ export const demoRooms = [
     featured: true,
     created_at: '2026-01-11T08:00:00Z',
     room_images: [
-      { id: 21, room_id: 2, image_url: img('room-2.svg'), sort_order: 0 },
+      { id: 21, room_id: 2, image_url: img('room-2.jpg'), sort_order: 0 },
     ],
   },
   {
@@ -46,7 +47,7 @@ export const demoRooms = [
     featured: true,
     created_at: '2026-01-12T08:00:00Z',
     room_images: [
-      { id: 31, room_id: 3, image_url: img('room-3.svg'), sort_order: 0 },
+      { id: 31, room_id: 3, image_url: img('room-3.jpg'), sort_order: 0 },
     ],
   },
   {
@@ -60,7 +61,7 @@ export const demoRooms = [
     featured: false,
     created_at: '2026-01-13T08:00:00Z',
     room_images: [
-      { id: 41, room_id: 4, image_url: img('room-4.svg'), sort_order: 0 },
+      { id: 41, room_id: 4, image_url: img('room-4.jpg'), sort_order: 0 },
     ],
   },
 ]
@@ -77,14 +78,14 @@ export const demoAmenities = [
 ]
 
 export const demoGallery = [
-  { id: 1, image_url: img('gallery-1.svg'), caption: 'Sunset over the cove', category: 'Beach' },
-  { id: 2, image_url: img('gallery-2.svg'), caption: 'Infinity pool at dusk', category: 'Pool' },
-  { id: 3, image_url: img('gallery-3.svg'), caption: 'Fresh catch of the day', category: 'Dining' },
-  { id: 4, image_url: img('gallery-4.svg'), caption: 'Beachfront villa exterior', category: 'Rooms' },
-  { id: 5, image_url: img('gallery-5.svg'), caption: 'Kayaking along the shore', category: 'Activities' },
-  { id: 6, image_url: img('gallery-6.svg'), caption: 'Garden pathway to the cottages', category: 'Grounds' },
-  { id: 7, image_url: img('gallery-7.svg'), caption: 'Poolside bar and lounge', category: 'Dining' },
-  { id: 8, image_url: img('gallery-8.svg'), caption: 'Morning at the private beach', category: 'Beach' },
+  { id: 1, image_url: img('gallery-1.jpg'), caption: 'White-sand beach at the cove', category: 'Beach' },
+  { id: 2, image_url: img('gallery-2.jpg'), caption: 'Infinity pool at dusk', category: 'Pool' },
+  { id: 3, image_url: img('gallery-3.jpg'), caption: 'Island restaurant dining', category: 'Dining' },
+  { id: 4, image_url: img('gallery-4.jpg'), caption: 'Resort grounds and poolside', category: 'Grounds' },
+  { id: 5, image_url: img('gallery-5.jpg'), caption: 'Evening at the shore', category: 'Beach' },
+  { id: 6, image_url: img('gallery-6.jpg'), caption: 'Water activities', category: 'Activities' },
+  { id: 7, image_url: img('gallery-7.jpg'), caption: 'Poolside lounge', category: 'Pool' },
+  { id: 8, image_url: img('hero-beach.jpg'), caption: 'Golden hour at the cove', category: 'Beach' },
 ]
 
 export const demoBookings = [

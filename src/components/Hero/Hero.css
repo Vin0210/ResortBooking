@@ -4,8 +4,8 @@
   display: flex;
   align-items: center;
   background:
-    radial-gradient(1100px 520px at 78% -10%, rgba(56, 189, 248, 0.35), transparent 60%),
-    radial-gradient(900px 500px at 10% 110%, rgba(255, 107, 74, 0.22), transparent 55%),
+    linear-gradient(185deg, rgba(7, 27, 38, 0.55) 0%, rgba(7, 27, 38, 0.45) 55%, rgba(7, 27, 38, 0.7) 100%),
+    url('/images/hero-beach.jpg') center / cover no-repeat,
     linear-gradient(160deg, #0b3d54 0%, #0e7490 55%, #14a0a6 100%);
   overflow: hidden;
 }
@@ -15,7 +15,7 @@
   inset: 0;
   background-image: url('/images/hero-texture.svg');
   background-size: cover;
-  opacity: 0.25;
+  opacity: 0.12;
   mix-blend-mode: overlay;
   pointer-events: none;
 }
