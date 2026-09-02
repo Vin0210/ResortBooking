@@ -12,7 +12,7 @@ import {
   demoSettings,
 } from '../data/demoData'
 
-const KEY = 'azure_cove_demo_store_v1'
+const KEY = 'azure_cove_demo_store_v2'
 
 function seed() {
   return {

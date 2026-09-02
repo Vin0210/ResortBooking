@@ -18,7 +18,7 @@ export const demoRooms = [
     featured: true,
     created_at: '2026-01-10T08:00:00Z',
     room_images: [
-      { id: 11, room_id: 1, image_url: img('room-1.svg'), sort_order: 0 },
+      { id: 11, room_id: 1, image_url: img('dlux.jpg'), sort_order: 0 },
     ],
   },
   {
