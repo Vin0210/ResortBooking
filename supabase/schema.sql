@@ -163,6 +163,22 @@ create policy "admin write settings" on public.business_settings
 create policy "admin write users" on public.users
   for all using (public.is_admin()) with check (public.is_admin());
 
+-- ---------- API access grants ----------
+-- Newer Supabase projects do not grant table privileges to the API
+-- roles by default. Without these, every request fails with
+-- "permission denied for table ..." even when RLS policies allow it.
+
+grant usage on schema public to anon, authenticated;
+
+-- Public website (anon): read display tables, submit bookings/inquiries
+grant select on public.rooms, public.room_images, public.amenities,
+  public.gallery, public.business_settings to anon;
+grant insert on public.bookings, public.inquiries to anon;
+
+-- Admin (authenticated): full management of everything
+grant all on all tables in schema public to authenticated;
+grant all on all sequences in schema public to authenticated;
+
 -- ---------- Storage buckets ----------
 
 insert into storage.buckets (id, name, public)
