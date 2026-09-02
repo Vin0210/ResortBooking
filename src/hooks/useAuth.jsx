@@ -46,6 +46,19 @@ export function AuthProvider({ children }) {
         password,
       })
       if (error) throw error
+
+      // Security: only accounts registered in the `users` table
+      // (role = admin) may open the dashboard. Everything else is
+      // signed out immediately.
+      const { data: profile, error: profileError } = await supabase
+        .from('users')
+        .select('id, role')
+        .eq('id', data.user.id)
+        .maybeSingle()
+      if (profileError || !profile) {
+        await supabase.auth.signOut()
+        throw new Error('This account is not authorized for admin access.')
+      }
       return data.user
     }
     if (!email || password.length < 4) {
@@ -57,6 +70,17 @@ export function AuthProvider({ children }) {
     return demoUser
   }
 
+  async function sendPasswordReset(email) {
+    if (!isDemo) {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/admin/login`,
+      })
+      if (error) throw error
+      return
+    }
+    await new Promise((r) => setTimeout(r, 500))
+  }
+
   async function signOut() {
     if (!isDemo) return supabase.auth.signOut()
     localStorage.removeItem(DEMO_SESSION_KEY)
@@ -64,7 +88,9 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, signOut, isDemo }}>
+    <AuthContext.Provider
+      value={{ user, loading, login, signOut, sendPasswordReset, isDemo }}
+    >
       {children}
     </AuthContext.Provider>
   )
