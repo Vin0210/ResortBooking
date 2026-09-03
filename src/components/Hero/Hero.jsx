@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Waves, Umbrella, UtensilsCrossed } from 'lucide-react'
+import { Waves, Umbrella, UtensilsCrossed, ChevronDown } from 'lucide-react'
 import './Hero.css'
 
 export default function Hero() {
@@ -16,6 +16,15 @@ export default function Hero() {
         >
           Beachfront Resort · Batangas, Philippines
         </motion.p>
+        <motion.div
+          className="hero__rating"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.05 }}
+        >
+          <span className="hero__rating-star" aria-hidden="true">★</span>
+          4.9 guest rating &nbsp;·&nbsp; 300+ happy stays
+        </motion.div>
         <motion.h1
           className="hero__title"
           initial={{ opacity: 0, y: 20 }}
@@ -64,6 +73,16 @@ export default function Hero() {
           </li>
         </motion.ul>
       </div>
+      <motion.div
+        className="hero__scroll-cue"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.8 }}
+        aria-hidden="true"
+      >
+        <ChevronDown size={22} />
+        Scroll
+      </motion.div>
       <svg
         className="hero__wave"
         viewBox="0 0 1440 90"

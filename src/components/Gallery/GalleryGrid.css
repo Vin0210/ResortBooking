@@ -75,6 +75,11 @@
   padding: var(--space-7) 0;
 }
 
+.gallery__grid--featured .gallery__item:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
 /* Lightbox */
 .lightbox {
   position: fixed;

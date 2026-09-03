@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Hotel, Waves, Star, Clock } from 'lucide-react'
 import Hero from '../components/Hero/Hero'
 import RoomCard from '../components/RoomCard/RoomCard'
 import AmenitiesGrid from '../components/Amenities/AmenitiesGrid'
 import GalleryGrid from '../components/Gallery/GalleryGrid'
+import Testimonials from '../components/Testimonials/Testimonials'
 import SectionHeading from '../components/common/SectionHeading'
 import Reveal from '../components/common/Reveal'
 import { usePageMeta } from '../hooks/usePageMeta'
@@ -47,18 +49,22 @@ export default function Home() {
           </Reveal>
           <Reveal className="home__stats" delay={0.15}>
             <div className="home__stat">
+              <span className="home__stat-icon" aria-hidden="true"><Hotel size={20} /></span>
               <strong>12</strong>
               <span>Rooms &amp; cottages</span>
             </div>
             <div className="home__stat">
+              <span className="home__stat-icon" aria-hidden="true"><Waves size={20} /></span>
               <strong>300m</strong>
               <span>Private beachfront</span>
             </div>
             <div className="home__stat">
-              <strong>4.9★</strong>
+              <span className="home__stat-icon" aria-hidden="true"><Star size={20} /></span>
+              <strong>4.9</strong>
               <span>Guest rating</span>
             </div>
             <div className="home__stat">
+              <span className="home__stat-icon" aria-hidden="true"><Clock size={20} /></span>
               <strong>24/7</strong>
               <span>Front desk</span>
             </div>
@@ -98,13 +104,23 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section">
+        <div className="container">
+          <SectionHeading
+            eyebrow="Guest stories"
+            title="Loved by families, couples & celebrations"
+          />
+          <Testimonials />
+        </div>
+      </section>
+
       <section className="section section--tint">
         <div className="container">
           <SectionHeading
             eyebrow="Gallery"
             title="Moments at the cove"
           />
-          <GalleryGrid images={gallery} />
+          <GalleryGrid images={gallery} featuredFirst />
           <div className="section__cta">
             <Link to="/gallery" className="btn btn--outline">
               See full gallery

@@ -39,6 +39,28 @@ export const business = {
   // SEO / domain (used for sitemap + structured data)
   url: 'https://azurecove.ph',
   logo: '/favicon.svg',
+
+  // Guest testimonials shown on the home page
+  testimonials: [
+    {
+      name: 'Maria & Jose Santos',
+      location: 'Makati City',
+      rating: 5,
+      text: 'The beachfront villa was even better than the photos. Waking up to the waves, private plunge pool, and the staff treated us like family. We are already booking again for December.',
+    },
+    {
+      name: 'The Cruz Family',
+      location: 'Quezon City',
+      rating: 5,
+      text: 'We took the whole family and the kids did not want to leave. Safe swimming, clean cottages, and the restaurant food was genuinely excellent. Worth every peso.',
+    },
+    {
+      name: 'Andrea Villanueva',
+      location: 'Tagaytay',
+      rating: 5,
+      text: 'We held our wedding at the event pavilion and it was magical. The team handled everything — setup, catering, timing. Our guests still talk about the sunset ceremony.',
+    },
+  ],
 }
 
 export default business

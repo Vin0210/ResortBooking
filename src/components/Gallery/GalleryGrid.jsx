@@ -6,7 +6,7 @@ import './GalleryGrid.css'
  * Responsive photo grid with category filter and lightbox.
  * `images` = [{ id, image_url, caption, category }]
  */
-export default function GalleryGrid({ images, categories = null, showFilter = false }) {
+export default function GalleryGrid({ images, categories = null, showFilter = false, featuredFirst = false }) {
   const allCategories = useMemo(
     () => categories ?? [...new Set(images.map((i) => i.category).filter(Boolean))],
     [images, categories]
@@ -58,7 +58,7 @@ export default function GalleryGrid({ images, categories = null, showFilter = fa
       {filtered.length === 0 ? (
         <p className="gallery__empty">No photos in this category yet.</p>
       ) : (
-        <div className="gallery__grid">
+        <div className={`gallery__grid ${featuredFirst ? 'gallery__grid--featured' : ''}`}>
           {filtered.map((image, idx) => (
             <button
               key={image.id}
