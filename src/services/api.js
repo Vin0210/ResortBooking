@@ -68,13 +68,10 @@ export async function createBooking(payload) {
       room_name: room ? room.name : 'General booking',
     })
   }
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from('bookings')
     .insert([{ ...payload, status: 'pending' }])
-    .select()
-    .single()
   if (error) throw error
-  return data
 }
 
 export async function createInquiry(payload) {
@@ -82,13 +79,10 @@ export async function createInquiry(payload) {
     await delay(600)
     return demoStore.insertInquiry(payload)
   }
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from('inquiries')
     .insert([{ ...payload, status: 'new' }])
-    .select()
-    .single()
   if (error) throw error
-  return data
 }
 
 function delay(ms) {
