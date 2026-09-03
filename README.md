@@ -1,9 +1,9 @@
-# Azure Cove — Reusable Business Website Template
+# Elvin's Beach Resort — Reusable Business Website Template
 
 A modern, mobile-first website system for local businesses (resorts, hotels,
 restaurants, clinics, event venues). Built once, re-themed per client.
 
-**Live demo business:** Azure Cove Beach Resort (resort/hotel vertical).
+**Live demo business:** Elvin's Beach Resort (resort/hotel vertical).
 
 ## Tech Stack
 
@@ -70,7 +70,7 @@ Setup:
    ```
    Get a free API key at resend.com/api-keys. For testing you can send from
    `onboarding@resend.dev`; for production, verify your domain at
-   resend.com/domains and set `EMAIL_FROM='Azure Cove <bookings@yourdomain.com>'`.
+   resend.com/domains and set `EMAIL_FROM='Elvin's Beach Resort <bookings@yourdomain.com>'`.
 3. In Supabase Dashboard → **Database → Webhooks**, create a webhook:
    - Table `bookings`, event **Insert** → HTTP POST to
      `https://<project-ref>.supabase.co/functions/v1/booking-notification`

@@ -1,5 +1,5 @@
 -- ============================================================
--- Azure Cove template — Supabase schema
+-- Elvin's Beach Resort template — Supabase schema
 -- Run this in: Supabase Dashboard -> SQL Editor
 -- ============================================================
 
@@ -213,11 +213,11 @@ insert into public.amenities (name, description, icon) values
 insert into public.business_settings
   (business_name, phone, email, address, facebook, instagram, map_url, description)
 values
-  ('Azure Cove Beach Resort', '+63 917 123 4567', 'hello@azurecove.ph',
+  ('Elvin''s Beach Resort', '+63 917 123 4567', 'hello@elvinsbeachresort.ph',
    '123 Shoreline Road, Brgy. San Isidro, Batangas, Philippines',
-   'https://facebook.com/azurecove', 'https://instagram.com/azurecove',
+   'https://facebook.com/elvinsbeachresort', 'https://instagram.com/elvinsbeachresort',
    'https://maps.google.com/?q=Batangas+Philippines',
-   'Azure Cove Beach Resort is a beachfront getaway featuring native cottages, an infinity pool, and direct access to a private white-sand cove.');
+   'Elvin''s Beach Resort is a beachfront getaway featuring native cottages, an infinity pool, and direct access to a private white-sand cove.');
 
 -- ============================================================
 -- After running this schema:

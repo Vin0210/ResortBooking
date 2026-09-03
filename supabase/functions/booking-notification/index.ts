@@ -21,9 +21,9 @@ interface WebhookPayload {
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')!
 const OWNER_EMAIL = Deno.env.get('OWNER_EMAIL')!
-const FROM = Deno.env.get('EMAIL_FROM') ?? 'Azure Cove <onboarding@resend.dev>'
-const SITE_URL = Deno.env.get('SITE_URL') ?? 'https://azurecove.ph'
-const BUSINESS_NAME = 'Azure Cove Beach Resort'
+const FROM = Deno.env.get('EMAIL_FROM') ?? "Elvin's Beach Resort <onboarding@resend.dev>"
+const SITE_URL = Deno.env.get('SITE_URL') ?? 'https://elvinsbeachresort.ph'
+const BUSINESS_NAME = "Elvin's Beach Resort"
 
 Deno.serve(async (req) => {
   if (req.method !== 'POST') {
@@ -111,7 +111,7 @@ function shell(title: string, inner: string, preheader = '') {
               <div style="color:#ffffff;font-size:13px;font-weight:bold;margin-bottom:6px;">${BUSINESS_NAME}</div>
               <div style="color:rgba(255,255,255,0.75);font-size:12px;line-height:1.8;">
                 123 Shoreline Road, Brgy. San Isidro, Batangas, Philippines<br/>
-                +63 917 123 4567 &nbsp;&middot;&nbsp; hello@azurecove.ph<br/>
+                +63 917 123 4567 &nbsp;&middot;&nbsp; hello@elvinsbeachresort.ph<br/>
                 Check-in 2:00 PM &nbsp;&middot;&nbsp; Check-out 12:00 NN
               </div>
               <div style="color:rgba(255,255,255,0.45);font-size:11px;margin-top:12px;">

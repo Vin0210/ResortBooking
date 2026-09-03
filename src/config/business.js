@@ -9,15 +9,15 @@
  */
 
 export const business = {
-  name: 'Azure Cove Beach Resort',
-  shortName: 'Azure Cove',
+  name: "Elvin's Beach Resort",
+  shortName: "Elvin's",
   tagline: 'Your island escape awaits',
   description:
-    'Azure Cove Beach Resort is a beachfront getaway featuring native cottages, a infinity pool, and direct access to a private white-sand cove. Perfect for families, couples, and events.',
+    "Elvin's Beach Resort is a beachfront getaway featuring native cottages, an infinity pool, and direct access to a private white-sand cove. Perfect for families, couples, and events.",
 
   // Contact
   phone: '+63 917 123 4567',
-  email: 'hello@azurecove.ph',
+  email: 'hello@elvinsbeachresort.ph',
   address: '123 Shoreline Road, Brgy. San Isidro, Batangas, Philippines',
   mapEmbed:
     'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61837.63258603475!2d120.9382566!3d13.9357547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd6b0b6bb3b0b3%3A0x8bb3b0b6bb3b0b3!2sBatangas!5e0!3m2!1sen!2sph!4v1700000000000',
@@ -25,9 +25,9 @@ export const business = {
 
   // Social media
   social: {
-    facebook: 'https://facebook.com/azurecove',
-    instagram: 'https://instagram.com/azurecove',
-    tiktok: 'https://tiktok.com/@azurecove',
+    facebook: 'https://facebook.com/elvinsbeachresort',
+    instagram: 'https://instagram.com/elvinsbeachresort',
+    tiktok: 'https://tiktok.com/@elvinsbeachresort',
   },
 
   hours: [
