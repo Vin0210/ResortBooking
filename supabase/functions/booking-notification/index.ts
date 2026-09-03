@@ -44,14 +44,20 @@ Deno.serve(async (req) => {
   }
 
   const { type, table, record } = payload
-  if (type !== 'INSERT') {
-    return new Response('Ignored — not an INSERT', { status: 200 })
-  }
 
   try {
     if (table === 'bookings') {
-      await sendBookingEmails(record)
+      if (type === 'INSERT') {
+        await sendBookingEmails(record)
+      } else if (type === 'UPDATE') {
+        await sendStatusChangeEmail(record, payload.old_record)
+      } else {
+        return new Response('Ignored — DELETE event', { status: 200 })
+      }
     } else if (table === 'inquiries') {
+      if (type !== 'INSERT') {
+        return new Response('Ignored — not an INSERT', { status: 200 })
+      }
       await sendInquiryEmail(record)
     } else {
       return new Response(`Ignored table: ${table}`, { status: 200 })
@@ -140,6 +146,56 @@ async function sendBookingEmails(b: Record<string, unknown>) {
       `),
     )
   }
+}
+
+async function sendStatusChangeEmail(
+  b: Record<string, unknown>,
+  oldRecord: Record<string, unknown> | null,
+) {
+  const prevStatus = String(oldRecord?.status ?? '')
+  const status = String(b.status ?? '')
+  if (!oldRecord || prevStatus === status) return // nothing actually changed
+
+  const name = String(b.customer_name ?? 'Guest')
+  const email = String(b.email ?? '')
+  const room = String(b.room_name ?? 'General booking')
+  const checkIn = String(b.check_in ?? '')
+  const checkOut = String(b.check_out ?? '')
+
+  if (!email) return
+
+  if (status === 'confirmed') {
+    await sendEmail(
+      email,
+      `Your booking is confirmed — Azure Cove`,
+      wrap(`
+        <p>Hi ${name},</p>
+        <p>Great news! Your booking request has been <strong
+          style="color:#16a34a">confirmed</strong>. We look forward to
+        welcoming you to Azure Cove Beach Resort!</p>
+        <table style="width:100%;line-height:1.8">
+          <tr><td><strong>Room</strong></td><td>${room}</td></tr>
+          <tr><td><strong>Dates</strong></td><td>${checkIn} → ${checkOut}</td></tr>
+        </table>
+        <p>Check-in is from 2:00 PM and check-out is at 12:00 NN. If you have
+        any questions before your stay, just reply to this email or call us.</p>
+      `),
+    )
+  } else if (status === 'cancelled' || status === 'rejected') {
+    await sendEmail(
+      email,
+      `Update on your booking request — Azure Cove`,
+      wrap(`
+        <p>Hi ${name},</p>
+        <p>We're sorry — your booking request for <strong>${room}</strong>
+        (${checkIn} → ${checkOut}) could not be accommodated and has been
+        <strong>${status}</strong>.</p>
+        <p>If you'd like, we're happy to help you find other available dates —
+        just reply to this email or contact us.</p>
+      `),
+    )
+  }
+  // Other status transitions (e.g. back to pending) don't email the customer.
 }
 
 async function sendInquiryEmail(q: Record<string, unknown>) {
