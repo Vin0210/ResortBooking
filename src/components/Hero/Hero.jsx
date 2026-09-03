@@ -14,7 +14,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          Beachfront Resort · Batangas, Philippines
+          Beachfront Resort · Zamboanga City
         </motion.p>
         <motion.div
           className="hero__rating"

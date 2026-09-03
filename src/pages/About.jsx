@@ -6,7 +6,7 @@ import business from '../config/business'
 import './About.css'
 
 export default function About() {
-  usePageMeta('About Us', `The story behind ${business.name} — a family-run beachfront resort in Batangas.`)
+  usePageMeta('About Us', `The story behind ${business.name} — a family-run beachfront resort in Zamboanga City.`)
 
   return (
     <>

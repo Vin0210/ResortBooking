@@ -13,7 +13,7 @@ import { getRooms, getAmenities, getGallery } from '../services/api'
 import './Home.css'
 
 export default function Home() {
-  usePageMeta(null, 'Beachfront resort in Batangas with a private cove, infinity pool, and native cottages. Book your island escape today.')
+  usePageMeta(null, 'Beachfront resort in Zamboanga City with a private cove, infinity pool, and native cottages. Book your island escape today.')
   const [rooms, setRooms] = useState([])
   const [amenities, setAmenities] = useState([])
   const [gallery, setGallery] = useState([])
@@ -38,7 +38,7 @@ export default function Home() {
             <p className="section-eyebrow">Welcome to paradise</p>
             <h2 className="section-title">A quiet cove, made for slowing down</h2>
             <p className="section-lead">
-              Tucked along the coastline of Batangas, our resort pairs
+              Tucked along the coastline of Zamboanga City, our resort pairs
               Filipino-native architecture with modern comfort. Spend your days
               between the infinity pool, the private beach, and the island
               restaurant — then fall asleep to the sound of the waves.

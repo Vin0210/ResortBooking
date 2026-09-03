@@ -181,10 +181,10 @@ export const demoSettings = {
   business_name: "Elvin's Beach Resort",
   phone: '+63 917 123 4567',
   email: 'hello@elvinsbeachresort.ph',
-  address: '123 Shoreline Road, Brgy. San Isidro, Batangas, Philippines',
+  address: 'Brgy. Culianan, Zamboanga City, Philippines',
   facebook: 'https://facebook.com/elvinsbeachresort',
   instagram: 'https://instagram.com/elvinsbeachresort',
-  map_url: 'https://maps.google.com/?q=Batangas+Philippines',
+  map_url: 'https://maps.google.com/?q=Culianan,+Zamboanga+City,+Philippines',
   description:
     "Elvin's Beach Resort is a beachfront getaway featuring native cottages, an infinity pool, and direct access to a private white-sand cove.",
 }

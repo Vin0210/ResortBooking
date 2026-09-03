@@ -214,9 +214,9 @@ insert into public.business_settings
   (business_name, phone, email, address, facebook, instagram, map_url, description)
 values
   ('Elvin''s Beach Resort', '+63 917 123 4567', 'hello@elvinsbeachresort.ph',
-   '123 Shoreline Road, Brgy. San Isidro, Batangas, Philippines',
+   'Brgy. Culianan, Zamboanga City, Philippines',
    'https://facebook.com/elvinsbeachresort', 'https://instagram.com/elvinsbeachresort',
-   'https://maps.google.com/?q=Batangas+Philippines',
+   'https://maps.google.com/?q=Culianan,+Zamboanga+City,+Philippines',
    'Elvin''s Beach Resort is a beachfront getaway featuring native cottages, an infinity pool, and direct access to a private white-sand cove.');
 
 -- ============================================================

@@ -18,10 +18,10 @@ export const business = {
   // Contact
   phone: '+63 917 123 4567',
   email: 'hello@elvinsbeachresort.ph',
-  address: '123 Shoreline Road, Brgy. San Isidro, Batangas, Philippines',
+  address: 'Brgy. Culianan, Zamboanga City, Philippines',
   mapEmbed:
-    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61837.63258603475!2d120.9382566!3d13.9357547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd6b0b6bb3b0b3%3A0x8bb3b0b6bb3b0b3!2sBatangas!5e0!3m2!1sen!2sph!4v1700000000000',
-  mapLink: 'https://maps.google.com/?q=Batangas+Philippines',
+    'https://maps.google.com/maps?q=Culianan,+Zamboanga+City,+Philippines&t=&z=15&ie=UTF8&iwloc=&output=embed',
+  mapLink: 'https://maps.google.com/?q=Culianan,+Zamboanga+City,+Philippines',
 
   // Social media
   social: {
@@ -37,7 +37,7 @@ export const business = {
   ],
 
   // SEO / domain (used for sitemap + structured data)
-  url: 'https://azurecove.ph',
+  url: 'https://resort-booking-lxkq9ji6d-elvin15.vercel.app',
   logo: '/favicon.svg',
 
   // Guest testimonials shown on the home page
