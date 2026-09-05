@@ -5,27 +5,55 @@
 }
 
 .amenity-card {
+  position: relative;
   background: #fff;
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-md);
   padding: var(--space-5);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  overflow: hidden;
+  transition: transform 0.3s var(--ease-spring), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.amenity-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--grad-brand);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-smooth);
 }
 
 .amenity-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(20, 160, 166, 0.35);
+}
+
+.amenity-card:hover::after {
+  transform: scaleX(1);
 }
 
 .amenity-card__icon {
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 13px;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
   background: var(--clr-primary-soft);
   color: var(--clr-primary);
   margin-bottom: var(--space-3);
+  transition: transform 0.3s var(--ease-spring), background 0.3s ease, color 0.3s ease;
+}
+
+.amenity-card:hover .amenity-card__icon {
+  transform: scale(1.08) rotate(-6deg);
+  background: var(--grad-brand);
+  color: #fff;
+  box-shadow: var(--shadow-teal);
 }
 
 .amenity-card h3 {

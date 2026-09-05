@@ -21,6 +21,7 @@ function seed() {
     gallery: demoGallery,
     bookings: demoBookings,
     inquiries: demoInquiries,
+    replies: [],
     settings: demoSettings,
     nextId: 1000,
   }
@@ -68,6 +69,48 @@ export const demoStore = {
   get inquiries() {
     return [...load().inquiries]
   },
+  get replies() {
+    return [...(load().replies ?? [])]
+  },
+
+  getReplies({ bookingId = null, inquiryId = null } = {}) {
+    const all = load().replies ?? []
+    return all
+      .filter((r) =>
+        bookingId != null
+          ? r.booking_id === bookingId
+          : inquiryId != null
+            ? r.inquiry_id === inquiryId
+            : true
+      )
+      .sort((a, b) => new Date(a.created_at) - new Date(b.created_at))
+  },
+
+  insertReply({ booking_id = null, inquiry_id = null, subject = '', message }) {
+    const db = load()
+    db.replies = db.replies ?? []
+    const reply = {
+      id: ++db.nextId,
+      booking_id,
+      inquiry_id,
+      subject,
+      message,
+      channel: 'email',
+      created_at: new Date().toISOString(),
+    }
+    db.replies.push(reply)
+    // Auto-advance status so the thread reads as handled
+    if (booking_id != null) {
+      const b = db.bookings.find((x) => x.id === booking_id)
+      if (b && b.status === 'pending') b.status = 'confirmed'
+    }
+    if (inquiry_id != null) {
+      const q = db.inquiries.find((x) => x.id === inquiry_id)
+      if (q && q.status === 'new') q.status = 'resolved'
+    }
+    save()
+    return reply
+  },
   get settings() {
     return { ...load().settings }
   },
@@ -104,6 +147,14 @@ export const demoStore = {
     if (b) b.status = status
     save()
     return b
+  },
+
+  updateInquiryStatus(id, status) {
+    const db = load()
+    const q = db.inquiries.find((x) => x.id === id)
+    if (q) q.status = status
+    save()
+    return q
   },
 
   deleteBooking(id) {

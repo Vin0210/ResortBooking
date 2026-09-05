@@ -1,6 +1,7 @@
 .section-heading {
-  max-width: 640px;
+  max-width: 660px;
   margin: 0 auto var(--space-7);
+  text-align: center;
 }
 
 .section-heading.align-left {
@@ -8,10 +9,18 @@
   text-align: left;
 }
 
+.section-heading .section-eyebrow {
+  justify-content: center;
+}
+
+.section-heading.align-left .section-eyebrow {
+  justify-content: flex-start;
+}
+
 .section-eyebrow {
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--clr-accent);
   margin-bottom: var(--space-2);
@@ -19,14 +28,15 @@
 
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
-  line-height: 1.15;
+  font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+  line-height: 1.12;
   color: var(--clr-ink);
+  text-wrap: balance;
 }
 
 .section-lead {
   margin-top: var(--space-3);
   color: var(--clr-muted);
-  font-size: 1.02rem;
+  font-size: 1.03rem;
   line-height: 1.65;
 }

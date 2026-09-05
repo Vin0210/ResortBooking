@@ -2,29 +2,39 @@
   position: fixed;
   right: 22px;
   bottom: 22px;
-  z-index: 90;
-  width: 46px;
-  height: 46px;
+  z-index: 91;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   display: grid;
   place-items: center;
-  background: var(--clr-primary);
+  background: var(--grad-ocean);
   color: #fff;
   cursor: pointer;
   box-shadow: var(--shadow-lg);
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(14px) scale(0.9);
   pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease, background 0.15s ease;
+  transition: opacity 0.3s ease, transform 0.3s var(--ease-spring), filter 0.2s ease;
 }
 
 .scroll-top.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
   pointer-events: auto;
 }
 
 .scroll-top:hover {
-  background: var(--clr-primary-dark);
+  filter: brightness(1.15);
+  transform: translateY(-3px) scale(1.05);
+}
+
+@media (max-width: 720px) {
+  .scroll-top {
+    bottom: calc(84px + env(safe-area-inset-bottom));
+    right: 14px;
+    width: 44px;
+    height: 44px;
+  }
 }

@@ -5,12 +5,13 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.35s var(--ease-spring), box-shadow 0.35s ease, border-color 0.3s ease;
 }
 
 .room-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-7px);
+  box-shadow: 0 24px 48px rgba(11, 40, 54, 0.16);
+  border-color: #ffd9c9;
 }
 
 .room-card__media {
@@ -26,11 +27,23 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.4s ease;
+  transition: transform 0.7s var(--ease-smooth);
 }
 
 .room-card:hover .room-card__media img {
-  transform: scale(1.04);
+  transform: scale(1.08);
+}
+
+.room-card__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(7, 27, 38, 0.55) 100%);
+  opacity: 0.7;
+  transition: opacity 0.35s ease;
+}
+
+.room-card:hover .room-card__shade {
+  opacity: 1;
 }
 
 .room-card__placeholder {
@@ -39,23 +52,101 @@
   background: linear-gradient(135deg, var(--clr-primary), var(--clr-primary-dark));
 }
 
+.room-card__flag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--grad-sunset);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(255, 107, 74, 0.45);
+}
+
+.room-card__heart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(11, 30, 40, 0.45);
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: transform 0.25s var(--ease-spring), background 0.25s ease, color 0.25s ease;
+}
+
+.room-card__heart:hover {
+  transform: scale(1.12);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--clr-accent);
+}
+
+.room-card__heart.is-liked {
+  background: var(--clr-accent);
+  border-color: var(--clr-accent);
+  color: #fff;
+  animation: heart-pop 0.35s var(--ease-spring);
+}
+
+@keyframes heart-pop {
+  0% { transform: scale(0.7); }
+  60% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
 .room-card__price {
   position: absolute;
   left: 12px;
   bottom: 12px;
-  background: rgba(11, 30, 40, 0.82);
+  background: rgba(11, 30, 40, 0.78);
   color: #fff;
   font-weight: 700;
   font-size: 1rem;
   padding: 0.35rem 0.75rem;
   border-radius: 999px;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .room-card__price small {
   font-weight: 500;
   opacity: 0.8;
   font-size: 0.75rem;
+}
+
+.room-card__view {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: #fff;
+  color: var(--clr-ink);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s var(--ease-spring);
+}
+
+.room-card:hover .room-card__view {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .room-card__body {
@@ -74,6 +165,7 @@
 .room-card__name a {
   color: var(--clr-ink);
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .room-card__name a:hover {
@@ -83,10 +175,22 @@
 .room-card__meta {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
   color: var(--clr-primary);
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+.room-card__dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--clr-border);
+}
+
+.room-card__rating {
+  color: var(--clr-gold);
+  font-weight: 700;
 }
 
 .room-card__desc {
@@ -101,12 +205,21 @@
   align-items: center;
   gap: 0.35rem;
   color: var(--clr-primary);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.95rem;
   text-decoration: none;
   margin-top: var(--space-2);
+  width: fit-content;
+}
+
+.room-card__link svg {
+  transition: transform 0.25s var(--ease-spring);
 }
 
 .room-card__link:hover {
   color: var(--clr-accent);
+}
+
+.room-card__link:hover svg {
+  transform: translateX(4px);
 }

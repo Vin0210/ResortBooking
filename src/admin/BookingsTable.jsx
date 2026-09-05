@@ -33,7 +33,7 @@ const ACTIONS = {
  * Table of booking requests with confirm / reject / cancel actions.
  * Every status change goes through an "Are you sure?" dialog.
  */
-export default function BookingsTable({ bookings, changeStatus, expanded, setExpanded }) {
+export default function BookingsTable({ bookings, changeStatus, expanded, setExpanded, busyId, onReply }) {
   const [pending, setPending] = useState(null) // { booking, status }
   const [working, setWorking] = useState(false)
 
@@ -67,7 +67,7 @@ export default function BookingsTable({ bookings, changeStatus, expanded, setExp
           </thead>
           <tbody>
             {bookings.map((b) => (
-              <tr key={b.id}>
+              <tr key={b.id} className={b.status === 'pending' ? 'row--unread' : ''}>
                 <td>
                   <strong>{b.customer_name}</strong>
                   <span className="bookings__sub">{b.email}</span>
@@ -96,10 +96,18 @@ export default function BookingsTable({ bookings, changeStatus, expanded, setExp
                 </td>
                 <td>
                   <div className="admin-actions">
+                    <button
+                      type="button"
+                      className="btn btn--primary"
+                      onClick={() => onReply?.(b)}
+                    >
+                      Reply
+                    </button>
                     {b.status !== 'confirmed' && (
                       <button
                         type="button"
-                        className="btn btn--primary"
+                        className="btn btn--outline"
+                        disabled={busyId === b.id}
                         onClick={() => setPending({ booking: b, status: 'confirmed' })}
                       >
                         Confirm
@@ -109,15 +117,17 @@ export default function BookingsTable({ bookings, changeStatus, expanded, setExp
                       <button
                         type="button"
                         className="btn btn--danger"
+                        disabled={busyId === b.id}
                         onClick={() => setPending({ booking: b, status: 'rejected' })}
                       >
                         Reject
                       </button>
                     )}
-                    {b.status !== 'cancelled' && (
+                    {b.status !== 'cancelled' && b.status !== 'confirmed' && (
                       <button
                         type="button"
                         className="btn btn--outline"
+                        disabled={busyId === b.id}
                         onClick={() => setPending({ booking: b, status: 'cancelled' })}
                       >
                         Cancel

@@ -13,11 +13,13 @@
 // ============================================================
 
 interface WebhookPayload {
-  type: 'INSERT' | 'UPDATE' | 'DELETE'
+  type: 'INSERT' | 'UPDATE' | 'DELETE' | 'REPLY'
   table: string
   record: Record<string, unknown>
   old_record: Record<string, unknown> | null
 }
+
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')!
 const OWNER_EMAIL = Deno.env.get('OWNER_EMAIL')!
@@ -25,16 +27,33 @@ const FROM = Deno.env.get('EMAIL_FROM') ?? "Elvin's Beach Resort <onboarding@res
 const SITE_URL = Deno.env.get('SITE_URL') ?? 'https://resort-booking-lxkq9ji6d-elvin15.vercel.app'
 const BUSINESS_NAME = "Elvin's Beach Resort"
 
+// Service-role client for server-side lookups (recipient email for replies).
+// These env vars are auto-provided to every Edge Function.
+const supabaseAdmin = createClient(
+  Deno.env.get('SUPABASE_URL')!,
+  Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+)
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+}
+
 Deno.serve(async (req) => {
+  // Browser preflight (supabase-js invoke from the admin dashboard)
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders })
+  }
   if (req.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 })
+    return new Response('Method not allowed', { status: 405, headers: corsHeaders })
   }
 
   let payload: WebhookPayload
   try {
     payload = await req.json()
   } catch {
-    return new Response('Invalid JSON', { status: 400 })
+    return new Response('Invalid JSON', { status: 400, headers: corsHeaders })
   }
 
   const { type, table, record } = payload
@@ -50,16 +69,49 @@ Deno.serve(async (req) => {
       if (type === 'INSERT') {
         await sendInquiryEmail(record)
       }
+    } else if (table === 'replies') {
+      // Fired by the `replies_notify` trigger (pg_net, server-to-server).
+      // The reply row only carries booking_id/inquiry_id — look up the guest.
+      if (type === 'INSERT') {
+        await sendReplyEmail(record)
+      }
+    }
+    // Direct admin reply from the dashboard (sendReply API).
+    // Body: { booking_id?, inquiry_id?, subject?, message, to? }
+    if (type === 'REPLY') {
+      const to = String(record.to ?? record.email ?? '')
+      const subject = String(record.subject ?? `A message from ${BUSINESS_NAME}`)
+      const message = String(record.message ?? '')
+      const guestName = String(record.guest_name ?? record.customer_name ?? record.name ?? 'Guest')
+      if (to && message) {
+        await sendEmail(
+          to,
+          subject,
+          shell(
+            'A Message From Us',
+            `
+            <p style="margin:0 0 6px;color:#132e3b;font-size:15px;">Hi <strong>${guestName}</strong>,</p>
+            <div style="margin:0 0 18px;color:#132e3b;font-size:14px;line-height:1.7;white-space:pre-wrap;">${message}</div>
+            <p style="margin:0;color:#5b6b74;font-size:13px;line-height:1.6;text-align:center;">
+              Just reply to this email or call us — we're happy to help.
+            </p>
+            `,
+            message.slice(0, 120),
+          ),
+        )
+      } else {
+        console.warn('REPLY skipped: missing recipient or message', JSON.stringify({ to, hasMessage: !!message }))
+      }
     }
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
   } catch (err) {
     console.error('Notification failed:', err)
     return new Response(JSON.stringify({ ok: false, error: String(err) }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
   }
 })
@@ -306,6 +358,57 @@ async function sendStatusChangeEmail(
     )
   }
   // Other status transitions (e.g. back to pending) don't email the customer.
+}
+
+async function sendReplyEmail(r: Record<string, unknown>) {
+  const bookingId = r.booking_id as number | null
+  const inquiryId = r.inquiry_id as number | null
+  const subject = String(r.subject ?? `A message from ${BUSINESS_NAME}`)
+  const message = String(r.message ?? '')
+  if (!message) return
+
+  let to = ''
+  let guestName = 'Guest'
+  if (bookingId != null) {
+    const { data } = await supabaseAdmin
+      .from('bookings')
+      .select('email, customer_name')
+      .eq('id', bookingId)
+      .maybeSingle()
+    if (data) {
+      to = String(data.email ?? '')
+      guestName = String(data.customer_name ?? guestName)
+    }
+  } else if (inquiryId != null) {
+    const { data } = await supabaseAdmin
+      .from('inquiries')
+      .select('email, name')
+      .eq('id', inquiryId)
+      .maybeSingle()
+    if (data) {
+      to = String(data.email ?? '')
+      guestName = String(data.name ?? guestName)
+    }
+  }
+  if (!to) {
+    console.warn('REPLY skipped: no recipient email found', JSON.stringify({ bookingId, inquiryId }))
+    return
+  }
+  await sendEmail(
+    to,
+    subject,
+    shell(
+      'A Message From Us',
+      `
+      <p style="margin:0 0 6px;color:#132e3b;font-size:15px;">Hi <strong>${guestName}</strong>,</p>
+      <div style="margin:0 0 18px;color:#132e3b;font-size:14px;line-height:1.7;white-space:pre-wrap;">${message}</div>
+      <p style="margin:0;color:#5b6b74;font-size:13px;line-height:1.6;text-align:center;">
+        Just reply to this email or call us — we're happy to help.
+      </p>
+      `,
+      message.slice(0, 120),
+    ),
+  )
 }
 
 async function sendInquiryEmail(q: Record<string, unknown>) {

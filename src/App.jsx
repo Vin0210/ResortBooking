@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/Navbar'
 import Footer from './components/Footer/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import ScrollTopButton from './components/ScrollTopButton'
+import StickyBookBar from './components/StickyBookBar/StickyBookBar'
 
 import Home from './pages/Home'
 import About from './pages/About'
@@ -64,6 +65,7 @@ function PublicLayout({ children }) {
       <Navbar />
       <main className="app-main">{children}</main>
       <Footer />
+      <StickyBookBar />
       <ScrollTopButton />
     </>
   )

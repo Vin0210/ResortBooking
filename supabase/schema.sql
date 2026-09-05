@@ -75,6 +75,18 @@ create table if not exists public.inquiries (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.replies (
+  id bigint generated always as identity primary key,
+  booking_id bigint references public.bookings(id) on delete cascade,
+  inquiry_id bigint references public.inquiries(id) on delete cascade,
+  subject text not null default '',
+  message text not null,
+  channel text not null default 'email'
+    check (channel in ('email', 'sms', 'note')),
+  created_at timestamptz not null default now(),
+  check (booking_id is not null or inquiry_id is not null)
+);
+
 create table if not exists public.business_settings (
   id bigint generated always as identity primary key,
   business_name text,
@@ -109,6 +121,7 @@ alter table public.amenities enable row level security;
 alter table public.gallery enable row level security;
 alter table public.bookings enable row level security;
 alter table public.inquiries enable row level security;
+alter table public.replies enable row level security;
 alter table public.business_settings enable row level security;
 
 -- helper: is the caller an authenticated admin?
@@ -147,6 +160,12 @@ create policy "admin read inquiries" on public.inquiries
 create policy "admin update inquiries" on public.inquiries
   for update using (public.is_admin());
 create policy "admin delete inquiries" on public.inquiries
+  for delete using (public.is_admin());
+create policy "admin read replies" on public.replies
+  for select using (public.is_admin());
+create policy "admin write replies" on public.replies
+  for insert with check (public.is_admin());
+create policy "admin delete replies" on public.replies
   for delete using (public.is_admin());
 
 -- Full management of content tables requires authentication

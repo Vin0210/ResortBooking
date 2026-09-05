@@ -133,7 +133,7 @@ export async function getInquiries() {
 }
 
 export async function updateInquiryStatus(id, status) {
-  if (isDemo) return demoStore.updateBookingStatus(id, status)
+  if (isDemo) return demoStore.updateInquiryStatus(id, status)
   const { data, error } = await supabase
     .from('inquiries')
     .update({ status })
@@ -142,6 +142,55 @@ export async function updateInquiryStatus(id, status) {
     .single()
   if (error) throw error
   return data
+}
+
+/* ---------------- Admin: replies (booking/inquiry thread) ---------------- */
+
+export async function getReplies({ bookingId = null, inquiryId = null } = {}) {
+  if (isDemo) return demoStore.getReplies({ bookingId, inquiryId })
+  // Gracefully handle projects where the replies table hasn't been migrated yet
+  try {
+    let query = supabase.from('replies').select('*').order('created_at', { ascending: true })
+    if (bookingId != null) query = query.eq('booking_id', bookingId)
+    if (inquiryId != null) query = query.eq('inquiry_id', inquiryId)
+    const { data, error } = await query
+    if (error) throw error
+    return data ?? []
+  } catch {
+    return []
+  }
+}
+
+export async function sendReply({ bookingId = null, inquiryId = null, subject = '', message }) {
+  const text = (message ?? '').trim()
+  if (!text) throw new Error('Reply message is empty.')
+  if (isDemo) {
+    await delay(400)
+    return demoStore.insertReply({
+      booking_id: bookingId,
+      inquiry_id: inquiryId,
+      subject,
+      message: text,
+    })
+  }
+  try {
+    const { data, error } = await supabase
+      .from('replies')
+      .insert([{ booking_id: bookingId, inquiry_id: inquiryId, subject, message: text, channel: 'email' }])
+      .select()
+      .single()
+    if (error) throw error
+    // Email fan-out is handled server-side: a Postgres trigger on `replies`
+    // calls the edge function via pg_net (no browser CORS involved).
+    // Nothing to do here — the reply is saved and the guest will be emailed.
+    return data
+  } catch (err) {
+    // Table missing (not migrated yet)? Surface a clear hint.
+    if (String(err?.message ?? err).includes('replies')) {
+      throw new Error('Replies table not found — run supabase/schema.sql (replies section) in the SQL Editor, then try again.', { cause: err })
+    }
+    throw err
+  }
 }
 
 /* ---------------- Admin: rooms ---------------- */
