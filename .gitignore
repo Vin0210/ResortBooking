@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 
-# Environment — never commit real credentials
+# Environment
 .env
 .env.*
 !.env.example
